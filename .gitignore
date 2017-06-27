@@ -1,0 +1,8 @@
+# Dependency directories
+node_modules/
+
+# IDE configs
+*.komodoproject
+
+# Generated docs
+docs-dev/

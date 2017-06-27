@@ -1,0 +1,31 @@
+{
+  "name": "@maynoothuniversity/human-join",
+  "version": "0.0.1",
+  "description": "A function for converting a JavaScript list to a human-friendly list.",
+  "main": "humanJoin.js",
+  "scripts": {
+    "test": "qunit test/test.js",
+    "generate-docs": "node_modules/.bin/jsdoc --configure jsdoc.conf.json",
+    "generate-docs-dev": "node_modules/.bin/jsdoc --configure jsdoc.conf.json --private --destination ./docs-dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbusschots-mu/humanJoin.js.git"
+  },
+  "keywords": [
+    "Array",
+    "join",
+    "human"
+  ],
+  "author": "Bart Busschots <bart.busschots@mu.ie>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bbusschots-mu/humanJoin.js/issues"
+  },
+  "homepage": "https://github.com/bbusschots-mu/humanJoin.js#readme",
+  "devDependencies": {
+    "jsdoc": "^3.4.3",
+    "minami": "^1.2.3",
+    "qunitjs": "^2.3.3"
+  }
+}
