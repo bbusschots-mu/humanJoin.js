@@ -1,6 +1,6 @@
 /**
  * @file Provides the [humanJoin]{@link module:humanJoin} module.
- * @version 0.0.1
+ * @version 0.1.1
  * @author Bart Busschots <bart.busschots@mu.ie>
  * @license MIT
  * @see https://github.com/bbusschots-mu/humanJoin.js
@@ -24,15 +24,17 @@
 //
 
 /**
- * A function for validating the parameters to a function.
+ * A function for converting lists into human-friendly joined stings, e.g.
+ * `['A', 'B', 'C']` into `'A, B & C'`.
  *
- * This is a wrapper around the [validate()]{@link external:validate} function
- * from [validate.js]{@link https://validatejs.org/#validate}. Both the values
- * to be tested and the constraints they should be tested against are specified
- * using arrays (or array-like objects) rather than associative arrays as
- * expected by [validate()]{@link external:validate}. The function assembles the
- * specified values and constraints into associative arrays using the names
- * `param1`, `param2` etc..
+ * By default this function uses `', '` as the separator, `' & '` as the
+ * conjunction (the special separator used between the last two items in the
+ * list), and does not wrap the items in the list in any kind of quotation.
+ *
+ * The default behaviour can be altered by editing the keys in
+ * [humanJoin.optionDefaults]{@link module:humanJoin.optionDefaults}, and the
+ * default option defaults can be restored by calling the function
+ * [humanJoin.resetOptionDefaults()]{@link module:humanJoin.resetOptionDefaults}.
  *
  * @alias humanJoin
  * @param {Arguments|string[]} list - a list of strings to join, can be an
@@ -67,6 +69,8 @@
  * shortcut for `options.conjunction=', or '`
  * @returns {string} a string is always returned, though it may be empty or the
  * result of converting a non-string object to a string.
+ * @see module:humanJoin.optionDefaults
+ * @see module:humanJoin.resetOptionDefaults
  * @example
  * var list = ['apples', 'oranges', 'pears'];
  *
@@ -136,22 +140,30 @@ var humanJoin = function(list, options){
     }
     
     // set up configuration
-    var separator = ', ';
+    var def = humanJoin.optionDefaults; // a local reference to make the code more readable
+    var separator = typeof def.separator === 'string' || typeof def.separator === 'number' ? def.separator : ', ';
     if(typeof options.separator === 'string' || typeof options.separator === 'number'){
-        separator = '' + options.separator; // force to string
+        separator = options.separator;
     }
-    var conjunction = ' & ';
-    if(typeof options.conjunction === 'string' || typeof options.conjunction === 'number'){
-        conjunction = '' + options.conjunction; // force to string
+    separator = '' + separator; // force to string
+    var conjunction = typeof def.conjunction === 'string' || typeof def.conjunction === 'number' || typeof def.conjunction === 'boolean' ? def.conjunction : ' & ';
+    if(typeof options.conjunction === 'string' || typeof options.conjunction === 'number' || typeof options.conjunction === 'boolean'){
+        conjunction = options.conjunction;
+    }
+    if(typeof conjunction === 'number'){
+        conjunction = '' + conjunction; // force to string
     }
     if(options.noConjunction){
         conjunction = false;
     }
-    var quoteWith = false;
-    if(typeof options.quoteWith === 'string' || typeof options.quoteWith === 'number'){
-        quoteWith = '' + options.quoteWith; // force to string
+    var quoteWith = typeof def.quoteWith === 'string' || typeof def.quoteWith === 'number' || typeof def.quoteWith === 'boolean' ? def.quoteWith : false;
+    if(typeof options.quoteWith === 'string' || typeof options.quoteWith === 'number' || typeof options.quoteWith === 'boolean'){
+        quoteWith = options.quoteWith;
     }
-    var mirrorQuote = true;
+    if(typeof quoteWith === 'number'){
+        quoteWith = '' + quoteWith; // force to string
+    }
+    var mirrorQuote = typeof def.mirrorQuote === 'boolean' ? def.mirrorQuote : true;
     if(typeof options.mirrorQuote !== 'undefined'){
         mirrorQuote = options.mirrorQuote ? true : false;
     }
@@ -237,9 +249,63 @@ humanJoin.mirrorMap = {
     '>' : '<'
 };
 
+/**
+ * An associative array of default values for the main function's options.
+ *
+ * The values in this array can be altered to change the default behaviour, e.g.
+ * to always have items quoted, or to have ` and ` as the default conjugation
+ * instead of ` & `.
+ *
+ * This array can be restored to its default value by calling the
+ * [humanJoin.resetOptionDefaults()]{@link humanJoin.resetOptionDefaults}
+ * function.
+ *
+ * @alias module:humanJoin.optionDefaults
+ * @type {Object.<string, string|boolean>}
+ * @since version 0.1.1
+ * @see module:humanJoin.resetOptionDefaults
+ */
+humanJoin.optionDefaults = {};
+
 //
 //=== Helper Functions =========================================================
 //
+
+/**
+ * Reset the option defaults to their default values:
+ * 
+ * * `separator` -> `', '`
+ * * `conjunction` -> `' & '`
+ * * `quoteWith` -> `false`
+ * * `mirrorQuote` -> `true`
+ *
+ * @alias module:humanJoin.resetOptionDefaults
+ * @since version 0.1.1
+ * @see module:humanJoin.optionDefaults
+ * @example
+ * // sample data
+ * var list = ['apples', 'oranges', 'bananas', 'pears'];
+ *
+ * // alter the defaults
+ * humanJoin.optionDefaults.conjunction = ' and ';
+ *
+ * // call the function without specifying any options
+ * var h1 = humanJoin(list); // apples, oranges, bananas and pears
+ *
+ * // reset the defaults
+ * humanJoin.resetOptionDefaults();
+ *
+ * // call the function without specifying any options
+ * var h2 = humanJoin(list); // apples, oranges, bananas & pears
+ */
+humanJoin.resetOptionDefaults = function(){
+    humanJoin.optionDefaults = {
+        separator: ', ',
+        conjunction: ' & ',
+        quoteWith: false,
+        mirrorQuote: true
+    };
+};
 
 /**
  * Mirrors a single character if possible.

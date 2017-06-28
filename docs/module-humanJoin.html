@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-humanJoin.html">humanJoin</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-humanJoin.html#.mirrorCharacter">mirrorCharacter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-humanJoin.html#.mirrorString">mirrorString</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#humanJoin">humanJoin</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-humanJoin.html">humanJoin</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-humanJoin.html#.mirrorCharacter">mirrorCharacter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-humanJoin.html#.mirrorString">mirrorString</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-humanJoin.html#.resetOptionDefaults">resetOptionDefaults</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#humanJoin">humanJoin</a></span></li>
 </nav>
 
 <div id="main">
@@ -216,6 +216,91 @@ mirror image:</p>
         <li>
             
 <span class="param-type"><code>Object.&lt;string, string></code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id=".optionDefaults"><span class="type-signature">(static) </span>optionDefaults<span class="type-signature"> :Object.&lt;string, (string|boolean)></span></h4>
+
+
+
+
+<div class="description">
+    <p>An associative array of default values for the main function's options.</p>
+<p>The values in this array can be altered to change the default behaviour, e.g.
+to always have items quoted, or to have <code>and</code> as the default conjugation
+instead of <code>&amp;</code>.</p>
+<p>This array can be restored to its default value by calling the
+humanJoin.resetOptionDefaults()
+function.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>version 0.1.1</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-humanJoin.html#.resetOptionDefaults">module:humanJoin.resetOptionDefaults</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>Object.&lt;string, (string|boolean)></code></span>
 
 
         </li>
@@ -567,6 +652,120 @@ var rev4 = humanJoin.mirrorString('--+'); // +--</code></pre>
 
 </div>
         
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id=".resetOptionDefaults"><span class="type-signature">(static) </span>resetOptionDefaults<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Reset the option defaults to their default values:</p>
+<ul>
+<li><code>separator</code> -&gt; <code>', '</code></li>
+<li><code>conjunction</code> -&gt; <code>' &amp; '</code></li>
+<li><code>quoteWith</code> -&gt; <code>false</code></li>
+<li><code>mirrorQuote</code> -&gt; <code>true</code></li>
+</ul>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>version 0.1.1</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-humanJoin.html#.optionDefaults">module:humanJoin.optionDefaults</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint"><code>// sample data
+var list = ['apples', 'oranges', 'bananas', 'pears'];
+
+// alter the defaults
+humanJoin.optionDefaults.conjunction = ' and ';
+
+// call the function without specifying any options
+var h1 = humanJoin(list); // apples, oranges, bananas and pears
+
+// reset the defaults
+humanJoin.resetOptionDefaults();
+
+// call the function without specifying any options
+var h2 = humanJoin(list); // apples, oranges, bananas &amp; pears</code></pre>
+
+</div>
+
+</div>
+        
     
 
     
@@ -584,7 +783,7 @@ var rev4 = humanJoin.mirrorString('--+'); // +--</code></pre>
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jun 28 2017 16:42:44 GMT+0100 (IST) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jun 28 2017 18:14:15 GMT+0100 (IST) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

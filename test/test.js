@@ -27,7 +27,11 @@ var NONSTRINGY_DATA_NAMES = [ 'boolean', 'array', 'plain object', 'prototyped ob
 QUnit.module('humanJoin() function',
     {
         beforeEach: function(){
+            // create a default list to work with
             this.list = ['apples', 'oranges', 'bananas', 'pears'];
+            
+            // reset the option defaults
+            humanJoin.resetOptionDefaults();
         }
     },
     function(){
@@ -39,6 +43,15 @@ QUnit.module('humanJoin() function',
             a.expect(2);
             a.equal(humanJoin(this.list), 'apples, oranges, bananas & pears', 'regular strings joined as expected');
             a.equal(humanJoin([0, 4, 42, 3.5, -1, -42, -42.5]), '0, 4, 42, 3.5, -1, -42 & -42.5', 'list of numbers joined as expected');
+        });
+        
+        QUnit.test('custom option defaults', function(a){
+            a.expect(1);
+            humanJoin.optionDefaults.separator = ' or ';
+            humanJoin.optionDefaults.conjunction = ' or even ';
+            humanJoin.optionDefaults.quoteWith = '->';
+            humanJoin.optionDefaults.mirrorQuote = false;
+            a.equal(humanJoin(this.list), '->apples-> or ->oranges-> or ->bananas-> or even ->pears->');
         });
         
         QUnit.test('separator option', function(a){
@@ -236,6 +249,39 @@ QUnit.module('humanJoin() function',
                 humanJoin(this.list, 'oxfordOr'),
                 'apples, oranges, bananas, or pears',
                 'shortcut works as string'
+            );
+        });
+    }
+);
+
+QUnit.module('humanJoin.resetOptionDefaults() function', {},
+    function(){
+        QUnit.test('function exists', function(a){
+            a.equal(typeof humanJoin.resetOptionDefaults, 'function');
+        });
+        
+        QUnit.test('all defaults set to the expected value', function(a){
+            a.expect(4);
+            humanJoin.resetOptionDefaults();
+            a.equal(
+                humanJoin.optionDefaults.separator,
+                ', ',
+                'separator reset to expected value'
+            );
+            a.equal(
+                humanJoin.optionDefaults.conjunction,
+                ' & ',
+                'conjunction reset to expected value'
+            );
+            a.equal(
+                humanJoin.optionDefaults.quoteWith,
+                false,
+                'quoteWith reset to expected value'
+            );
+            a.equal(
+                humanJoin.optionDefaults.mirrorQuote,
+                true,
+                'mirrorQuote reset to expected value'
             );
         });
     }
