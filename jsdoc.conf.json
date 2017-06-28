@@ -1,17 +1,16 @@
 {
 	"source" : {
-		"include": ["./validateParams.js"]
+		"include": ["./humanJoin.js"]
 	},
 	"opts" : {
 		"destination" : "./docs",
-		"template": "./node_modules/minami"
+		"template": "./node_modules/minami",
+		"encoding": "utf8"
 	},
 	"templates" : {
 		"default" : {
-			"outputSourceFiles" : false,
-			"useLongnameInNav" : true
-		},
-		"useLongnameInNav": true
+			"outputSourceFiles" : false
+		}
 	},
     "plugins": ["plugins/markdown"]
 }
