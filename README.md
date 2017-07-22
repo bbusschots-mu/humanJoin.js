@@ -35,7 +35,7 @@ var validateParam = require('@maynoothuniversity/human-join');
 <script type="text/javascript" src="https://cdn.rawgit.com/bbusschots-mu/humanJoin.js/master/validateParams.js" ></script>
 ```
 
-## Synopsis:
+## Synopsis
 
 ```
 var human = humanJoin(list, [options]);
@@ -82,3 +82,7 @@ var advancedHuman1 = joinHuman(
 );
 // returns: [apples] or [oranges] or [bananas] or even [pears]
 ```
+
+## Documentation
+
+* [API Documentation](https://bbusschots-mu.github.io/humanJoin.js/)

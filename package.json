@@ -6,7 +6,7 @@
   "scripts": {
     "test": "qunit test/test.js",
     "generate-docs": "node_modules/.bin/jsdoc --configure jsdoc.conf.json",
-    "generate-docs-dev": "node_modules/.bin/jsdoc --configure jsdoc.conf.json --private --destination ./docs-dev"
+	"generate-docset": "node_modules/.bin/jsdoc --configure jsdoc.conf.json --destination ./docset --template ./node_modules/jsdoc-dash-template"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,9 @@
   },
   "homepage": "https://github.com/bbusschots-mu/humanJoin.js#readme",
   "devDependencies": {
+    "@bbusschots/minami-bartificer": "^1.2.3",
     "jsdoc": "^3.4.3",
-    "minami": "^1.2.3",
+    "jsdoc-dash-template": "^2.0.1",
     "qunitjs": "^2.3.3"
   }
 }
