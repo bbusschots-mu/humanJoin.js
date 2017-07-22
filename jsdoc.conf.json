@@ -4,7 +4,8 @@
 	},
 	"opts" : {
 		"destination" : "./docs",
-		"template": "./node_modules/minami",
+		"template": "./node_modules/@bbusschots/minami-bartificer",
+		"readme": "./README.md",
 		"encoding": "utf8"
 	},
 	"templates" : {
@@ -12,5 +13,9 @@
 			"outputSourceFiles" : false
 		}
 	},
-    "plugins": ["plugins/markdown"]
+    "plugins": ["plugins/markdown"],
+	"docset" : {
+		"name": "humanJoinJS",
+		"enableJavascript": true
+	}
 }
