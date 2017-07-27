@@ -8,7 +8,7 @@ Both the separator and the conjunction are configurable, and there are built-in
 shortcuts for common needs like the so-called
 [Oxford Comma](https://en.wikipedia.org/wiki/Serial_comma). The function also
 supports wrapping each of the items in the list with a string before they are
-joined. If wrapping is requested, it will be default be inteligently mirrored,
+joined. If wrapping is requested, it will be intelligently mirrored by default,
 so wrapping with `<<` will result in output of the form:
 `<<apples>>, <<oranges>>, <<bananas>> & <<pears>>`.
 
