@@ -72,7 +72,7 @@ var advancedHuman1 = joinHuman(
 // returns: "apples", "oranges", "bananas", or "pears"
 
 // multiple options example 2
-var advancedHuman1 = joinHuman(
+var advancedHuman2 = joinHuman(
     list,
     {
         separator: ' or ',
